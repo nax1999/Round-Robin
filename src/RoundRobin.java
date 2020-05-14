@@ -55,6 +55,7 @@ public class RoundRobin {
 	public void Algoritmo() {
 		boolean terminado=false;
 		int tick=0;
+		int contador=0;
 		int quantumAux=0;
 		Proceso cpu = new Proceso();
 		ArrayList<Proceso> cola = new ArrayList<Proceso>();
@@ -91,6 +92,7 @@ public class RoundRobin {
 				}
 				if(cpu.getTicksProceso()<=0) {
 					cpu.setFin(tick);
+					contador++;
 					//System.out.println("El proceso "+cpu.getId()+" ha terminado.");
 					System.out.println("Proceso "+cpu.getId()+". Inicio: "+cpu.getInicio()+". Fin: "+cpu.getFin()+". T Resp: "+(cpu.getFin()-cpu.getInstanteLlegadaAux())+". T Espera: "+((cpu.getFin()-cpu.getInstanteLlegadaAux())-cpu.getTicksProcesoAux())+". P: "+((float)(cpu.getFin()-cpu.getInstanteLlegadaAux())/cpu.getTicksProcesoAux()));     
 					if(!cola.isEmpty()) {
@@ -102,7 +104,10 @@ public class RoundRobin {
 						quantumAux=0;						
 					}
 					else {
-						terminado=true;
+	
+						if(contador>=this.numProceso) {
+							terminado=true;
+						}
 					}
 				}
 				else {
